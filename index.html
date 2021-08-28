@@ -68,7 +68,7 @@
                 fetch('https://proxy.hackeryou.com/?reqUrl=https://www.formrocket.me/api/forms/' + userId + '/' + formName + '/' + formId + '/' + formSecret + '/get').then(res => res.json()).then(res => {
                     d = res
                     if (res.error) {
-                        window.location.href = "./#Invalid_Connection_Data"
+                        window.location.href = "./#" + res.error.code
                     } else {
                         document.getElementById('mainConnected').style.display = 'initial'
                         document.getElementById('load').style.display = 'none'
