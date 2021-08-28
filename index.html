@@ -95,17 +95,16 @@
                     if (res.error) {
                         window.location.href = "./?code=" + res.error.code + "&msg=" + res.error.data
                     } else {
-                        try {
                         document.getElementById('mainConnected').style.display = 'initial'
                         document.getElementById('load').style.display = 'none'
                         document.getElementById('formName').innerHTML = `<u>${escape(formName) || 'Unknown'}</u>`
                         document.getElementById('responses').innerHTML = `<p>${res.data.form.responses.all ? res.data.form.responses.all.map((i, b) => `<span title="${i.id}"><b>${b + 1}</b> <code>${escape(JSON.stringify(i.data))}</code></span><br />`) : 'Nothing here yet!'}</p>`
                         document.getElementById('rawData').innerHTML = `${escape(JSON.stringify(res, null, '\t'))}`
                         console.log(res)
-                        } catch (e) {
-                            window.location.href `./?code=CONNECTION_FAILED&msg=An error occured in the script. This is most likely because the request to the API failed. Be sure not to include any slashes in the fields and try again.`
                         }
-                    }
+                    
+                }).catch(() => {
+                    window.location.href `./?code=CONNECTION_FAILED&msg=An error occured in the script. This is most likely because the request to the API failed. Be sure not to include any slashes in the fields and try again.`
                 })
             }
 
