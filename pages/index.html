@@ -27,18 +27,51 @@
         </center>
 
         </div>
+
+        <div id="mainConnected" style="display:none;">
+            <center>
+            <h1>Connected to <span id="formName"></span></h1>
+            <a href="./"><button style="background-color: red;color:white;">Disconnect ⇒</button></a>
+            <p></p>
+            <h3>Responses</h3>
+            <p>A list of the responses from your form. <sup>JSON List</sup></p>
+            <div id="responses">
+                Loading
+            </div>
+
+            <h3>Raw data</h3>
+            <p>Raw data from the response of the request sent to FormRocket to get your form&apos;s details. <sup>JSON</sup></p>
+            </center>
+            <pre id="rawData" style="margin-right: 30%;margin-left: 30%;color:#d17073;background-color:#2d2d2d;border-radius:8px;padding:8px;"></pre>
+
+        </div>
         <script>
+            function escape(unsafe) {
+    return unsafe ? unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;") : null
+ }
             const urlParams = new URLSearchParams(window.location.search);
             const userId = urlParams.get('userId');
             const formName = urlParams.get('formName');
             const formId = urlParams.get('formId')
             const formSecret = urlParams.get('formSecret')
+            var d = {}
 
             if (!userId || !formName || !formId || !formSecret) {
                 document.getElementById('mainNotConnected').style.display = 'initial'
                 document.getElementById('load').style.display = 'none'
             } else {
-                fetch('https://www.formrocket.me/api/forms/' + userId + '/' + formName + '/' + formId + '/' + formSecret + '/get').then(res => res.json()).then(res => {
+                fetch('https://proxy.hackeryou.com/?reqUrl=https://www.formrocket.me/api/forms/' + userId + '/' + formName + '/' + formId + '/' + formSecret + '/get').then(res => res.json()).then(res => {
+                    d = res
+                    document.getElementById('mainConnected').style.display = 'initial'
+                    document.getElementById('load').style.display = 'none'
+                    document.getElementById('formName').innerHTML = `<u>${escape(res.data.form.formName) || 'Unknown'}</u>`
+                    document.getElementById('responses').innerHTML = `<p>${res.data.form.responses.all ? res.data.form.responses.all.map((i, b) => `<span title="${i.id}"><b>${b + 1}</b> <code>${escape(JSON.stringify(i.data))}</code></span><br />`) : 'Nothing here yet!'}</p>`
+                    document.getElementById('rawData').innerHTML = `${escape(JSON.stringify(res, null, '\t'))}`
                     console.log(res)
                 })
             }
