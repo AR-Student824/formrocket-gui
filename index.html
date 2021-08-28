@@ -16,7 +16,8 @@
             <center>
             <h1>FormRocket-GUI</h1>
             <p>Connect to a form by filling out the details below. Everything can be found from the official FormRocket dashboard.</p>
-            <p>You either haven't inputted the required details, or the details you have entered are incorrect. Click the connect button to (re)check &amp; attempt to connect.</p>
+            <p id="noInp">You haven't inputted the required details. Click the connect button to (re)check &amp; attempt to connect.</p>
+            <p id="error" style="color: red;display:none;"></p>
             <form action="/">
                 <input type="text" name="userId" placeholder="User ID" required>
                 <input type="text" name="formName" placeholder="Form Name (Case sensitive)" required>
@@ -46,6 +47,7 @@
 
         </div>
         <script>
+            console.log('[Info] Do not enter anything in here, as it could give attackers access to your forms, and/or your formSecret, which should not be shared with anyone.')
             function escape(unsafe) {
     return unsafe ? unsafe
          .replace(/&/g, "&amp;")
@@ -59,16 +61,23 @@
             const formName = urlParams.get('formName');
             const formId = urlParams.get('formId')
             const formSecret = urlParams.get('formSecret')
+            const errCode = urlParams.get('code')
+            const errMsg = urlParams.get('msg')
             var d = {}
 
             if (!userId || !formName || !formId || !formSecret) {
                 document.getElementById('mainNotConnected').style.display = 'initial'
                 document.getElementById('load').style.display = 'none'
+                if (errCode && errMsg) {
+                    document.getElementById('error').innerHTML = `<u>[${escape(errCode)}]</u> ${escape(errMsg)}`
+                    document.getElementById('error').style.display = 'none'
+                    document.getElementById('noInp').style.display = 'none'
+                }
             } else {
                 fetch('https://proxy.hackeryou.com/?reqUrl=https://www.formrocket.me/api/forms/' + userId + '/' + formName + '/' + formId + '/' + formSecret + '/get').then(res => res.json()).then(res => {
                     d = res
                     if (res.error) {
-                        window.location.href = "./#" + res.error.code
+                        window.location.href = "./?code=" + res.error.code + "&msg=" + res.error.message
                     } else {
                         document.getElementById('mainConnected').style.display = 'initial'
                         document.getElementById('load').style.display = 'none'
