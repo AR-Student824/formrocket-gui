@@ -67,12 +67,16 @@
             } else {
                 fetch('https://proxy.hackeryou.com/?reqUrl=https://www.formrocket.me/api/forms/' + userId + '/' + formName + '/' + formId + '/' + formSecret + '/get').then(res => res.json()).then(res => {
                     d = res
-                    document.getElementById('mainConnected').style.display = 'initial'
-                    document.getElementById('load').style.display = 'none'
-                    document.getElementById('formName').innerHTML = `<u>${escape(res.data.form.formName) || 'Unknown'}</u>`
-                    document.getElementById('responses').innerHTML = `<p>${res.data.form.responses.all ? res.data.form.responses.all.map((i, b) => `<span title="${i.id}"><b>${b + 1}</b> <code>${escape(JSON.stringify(i.data))}</code></span><br />`) : 'Nothing here yet!'}</p>`
-                    document.getElementById('rawData').innerHTML = `${escape(JSON.stringify(res, null, '\t'))}`
-                    console.log(res)
+                    if (res.error) {
+                        window.location.href = "./#Invalid_Connection_Data"
+                    } else {
+                        document.getElementById('mainConnected').style.display = 'initial'
+                        document.getElementById('load').style.display = 'none'
+                        document.getElementById('formName').innerHTML = `<u>${escape(res.data.form.formName) || 'Unknown'}</u>`
+                        document.getElementById('responses').innerHTML = `<p>${res.data.form.responses.all ? res.data.form.responses.all.map((i, b) => `<span title="${i.id}"><b>${b + 1}</b> <code>${escape(JSON.stringify(i.data))}</code></span><br />`) : 'Nothing here yet!'}</p>`
+                        document.getElementById('rawData').innerHTML = `${escape(JSON.stringify(res, null, '\t'))}`
+                        console.log(res)
+                    }
                 })
             }
 
