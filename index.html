@@ -119,7 +119,7 @@
                             <b>Created at</b> ${res.data.form.createdAt ? new Date(res.data.form.createdAt) : "Unknown"}
                         </p>
                         <p>
-                            <b>Total responses</b> ${escape(res.data.form.responses.all.length)}
+                            <b>Total responses</b> ${res.data.form.responses.all.length}
                         </p>
                         `
                         document.getElementById('rawData').innerHTML = `${escape(JSON.stringify(res, null, '\t'))}`
