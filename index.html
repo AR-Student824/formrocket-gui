@@ -70,7 +70,7 @@
                 document.getElementById('mainNotConnected').style.display = 'initial'
                 document.getElementById('load').style.display = 'none'
                 if (errCode && errMsg) {
-                    document.getElementById('error').innerHTML = `<u>[${escape(errCode)}]</u> ${escape(errMsg)}`
+                    document.getElementById('error').innerHTML = `<u title="This error occured before the request to the API could finish.">[${escape(errCode)}]</u> ${escape(errMsg)}`
                     document.getElementById('error').style.display = 'initial'
                     document.getElementById('noInp').style.display = 'none'
                 }
