@@ -106,12 +106,34 @@
                         document.getElementById('responses').innerHTML = `<p>${res.data.form.responses.all ? res.data.form.responses.all.map((i, b) => `<span title="${i.id}"><b>${b + 1}</b> <code>${escape(JSON.stringify(i.data))}</code></span><br />`) : 'Nothing here yet!'}</p>`
                         document.getElementById('formInfo').innerHTML = `
                         <p>
-                            <b>Form name:</b> ${escape(formName)}    
-                            <b>Form ID:</b> ${escape(formId)}
-                            <b>Form secret:</b> ${escape(formSecret)} <i>Never share this with anyone</i>
-                            <b>Owner ID:</b> ${escape(userId)}
-                            <b>Created at:</b> ${res.data.form.createdAt ? new Date(res.data.form.createdAt) : "Unknown"}
-                            <b>Total responses:</b> ${res.data.form.responses.all.length}
+                            <b>Form name</b>
+                            <br />
+                            ${escape(formName)}  
+
+                            <br /><br />  
+                            <b>Form ID</b>
+                            <br />
+                            ${escape(formId)}
+
+                            <br /><br />
+                            <b>Form secret</b>
+                            <br />
+                            ${escape(formSecret)} <i>Never share this with anyone</i>
+
+                            <br /><br />
+                            <b>Owner ID</b>
+                            <br />
+                            ${escape(userId)}
+
+                            <br /><br />
+                            <b>Created at</b>
+                            <br />
+                            ${res.data.form.createdAt ? new Date(res.data.form.createdAt) : "Unknown"}
+
+                            <br /><br />
+                            <b>Total responses</b>
+                            <br />
+                            ${res.data.form.responses.all.length}
                         </p>
                             `
                         document.getElementById('rawData').innerHTML = `${escape(JSON.stringify(res, null, '\t'))}`
