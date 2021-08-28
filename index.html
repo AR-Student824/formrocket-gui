@@ -20,7 +20,7 @@
             <p>All details required below can be found from the <a href="https://www.formrocket.me">FormRocket dashboard</a>.</p>
             <p id="noInp">You haven't inputted the required details. Click the connect button to (re)check &amp; attempt to connect.</p>
             <p id="error" style="color: red;display:none;"></p>
-            <form action="/">
+            <form action="/" autocomplete="off">
                 <input type="text" name="userId" placeholder="User ID" required>
                 <input type="text" name="formName" placeholder="Form Name (Case sensitive)" required>
                 <input type="text" name="formId" placeholder="Form ID" required>
@@ -43,7 +43,10 @@
                 Loading
             </div>
 
-            <h3></h3>
+            <h3>Form information</h3>
+            <div id="formInfo">
+                Loading
+            </div>
 
             <h3>Raw data</h3>
             <p>Raw data from the response of the request sent to FormRocket to get your form&apos;s details. <sup>JSON</sup></p>
@@ -99,6 +102,26 @@
                         document.getElementById('load').style.display = 'none'
                         document.getElementById('formName').innerHTML = `<u>${escape(formName) || 'Unknown'}</u>`
                         document.getElementById('responses').innerHTML = `<p>${res.data.form.responses.all ? res.data.form.responses.all.map((i, b) => `<span title="${i.id}"><b>${b + 1}</b> <code>${escape(JSON.stringify(i.data))}</code></span><br />`) : 'Nothing here yet!'}</p>`
+                        document.getElementById('formInfo').innerHTML = `
+                        <p>
+                            <b>Form name</b> ${escape(formName)}    
+                        </p>
+                        <p>
+                            <b>Form ID</b> ${escape(formId)}
+                        </p>
+                        <p>
+                            <b>Form secret</b> ${escape(formSecret)} <i>Never share this with anyone</i>
+                        </p>
+                        <p>
+                            <b>Owner ID</b> ${escape(userId)}
+                        </p>
+                        <p>
+                            <b>Created at</b> ${res.data.form.createdAt ? new Date(res.data.form.createdAt) : "Unknown"}
+                        </p>
+                        <p>
+                            <b>Total responses</b> ${escape(res.data.form.responses.all.length)}
+                        </p>
+                        `
                         document.getElementById('rawData').innerHTML = `${escape(JSON.stringify(res, null, '\t'))}`
                         console.log(res)
                         }
