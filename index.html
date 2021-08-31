@@ -107,9 +107,9 @@
                     } else {
                         document.getElementById('mainConnected').style.display = 'initial'
                         document.getElementById('load').style.display = 'none'
-                        
+
                         document.getElementById('formName').innerHTML = `<u>${escape(formName) || 'Unknown'}</u>`
-                        document.getElementById('responses').innerHTML = `<p>${res.data.form.responses.all ? res.data.form.responses.all.map((i, b) => `<li><span title="${i.id}"><b>${b + 1}</b> <code>${escape(JSON.stringify(i.data))}</code></span></li><br />`).join('') : 'Nothing here yet!'}</p>`
+                        document.getElementById('responses').innerHTML = `<p>${res.data.form.responses.all ? res.data.form.responses.all.map((i, b) => `<li><span title="${i.id}"><b>${b + 1}</b> <code>${escape(JSON.stringify(i.data))}</code></span></li>`).join('') : 'Nothing here yet!'}</p>`
                         document.getElementById('formInfo').innerHTML = `
                         <p>
                             <b>Form name</b>
