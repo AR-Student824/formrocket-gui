@@ -100,7 +100,7 @@
                     document.getElementById('noInp').style.display = 'none'
                 }
             } else {
-                fetch('https://proxy.hackeryou.com/?reqUrl=https://www.formrocket.me/api/forms/' + userId + '/' + formName + '/' + formId + '/' + formSecret + '/get').then(res => res.json()).then(res => {
+                fetch('https://proxy.hackeryou.com/?reqUrl=https://www.formrocket.me/api/forms/' + encodeURIComponent(userId) + '/' + encodeURIComponent(formName) + '/' + encodeURIComponent(formId) + '/' + encodeURIComponent(formSecret) + '/get').then(res => res.json()).then(res => {
                     d = res
                     if (res.error) {
                         window.location.href = "./?code=" + res.error.code + "&msg=" + res.error.data
