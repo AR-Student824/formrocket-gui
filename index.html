@@ -49,10 +49,7 @@ input[type="password"] {
 </div>
         <div id="mainNotConnected" style="display:none;">
             <center>
-            <h1>FormRocket-GUI 🚀</h1>
-            <p>A simple, clean &amp; open source way to view data &amp; responses from your FormRocket forms.</p>
-            <p>All details required below can be found from the <a href="https://www.formrocket.me">FormRocket dashboard</a>.</p>
-            <p id="noInp">You haven't inputted the required details. Click the connect button to (re)check &amp; attempt to connect.</p>
+            <h1>🚀</h1>
             <p id="error" style="color: red;display:none;"></p>
             <form action="/" autocomplete="off">
                 <input type="text" name="userId" placeholder="User ID" required>
@@ -133,7 +130,6 @@ input[type="password"] {
                 if (errCode && errMsg) {
                     document.getElementById('error').innerHTML = `<u title="This error occured before the request to the API could finish.">[${escape(errCode)}]</u> ${escape(errMsg)}`
                     document.getElementById('error').style.display = 'initial'
-                    document.getElementById('noInp').style.display = 'none'
                 }
             } else {
                 fetch('https://proxy.formrocket.me/?reqUrl=https://www.formrocket.me/api/forms/' + encodeURIComponent(userId) + '/' + encodeURIComponent(formName) + '/' + encodeURIComponent(formId) + '/' + encodeURIComponent(formSecret) + '/get').then(res => res.json()).then(res => {
