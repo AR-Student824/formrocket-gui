@@ -144,7 +144,11 @@
             document.getElementById('mainNotConnected').style.display = 'initial'
             document.getElementById('load').style.display = 'none'
             if (errCode && errMsg) {
-                swal(escape(errCode), escape(errMsg))
+                swal({
+                    title: escape(errCode), 
+                    text: escape(errMsg),
+                    icon: "error"
+                })
             }
         } else {
             var url = 'https://proxy.formrocket.me/?reqUrl=https://www.formrocket.me/api/forms/' + encodeURIComponent(userId) + '/' + encodeURIComponent(formName) + '/' + encodeURIComponent(formId) + '/' + encodeURIComponent(formSecret) + '/get'
