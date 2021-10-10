@@ -88,7 +88,7 @@
             <!--<img src="/connected.svg" width="30%" style="margin-top: 5%" /> -->
             <img src="https://www.formrocket.me/files/formrocket.png" />
             <h1>Connected to <span id="formName" title="This is the name of your form."></span></h1>
-            <p><b>FORMROCKET GUI</b> - v1.0.0</p>
+            <p><b>FORMROCKET GUI</b> - v1.0.0 &bullet; <span id="ping"></span></p>
             <div style="margin-bottom: 100px;">
                 <button onclick="window.location.href = './'" style="background-color: red;color:white;"
                     title="Disconnects from the form and redirects back to the homepage.">DISCONNECT ✕</button>
@@ -140,6 +140,7 @@
         const formSecret = urlParams.get('formSecret')
         const errCode = urlParams.get('code')
         const errMsg = urlParams.get('msg')
+        var current = +Date.now()
         var d = {}
 
         if (!userId || !formName || !formId || !formSecret) {
@@ -158,7 +159,7 @@
                 } else {
                     document.getElementById('mainConnected').style.display = 'initial'
                     document.getElementById('load').style.display = 'none'
-
+                    document.getElementById('ping').innerHTML = `${+Date.now() - current}ms`
                     document.getElementById('formName').innerHTML = `<u>${escape(formName) || 'Unknown'}</u>`
                     document.getElementById('responses').innerHTML = `<p>${res.data.form.responses.all != [] ? res.data.form.responses.all.map((i, b) => `<span style="display:block;" title="${i.id}"><b>${b + 1}</b> <code>${escape(JSON.stringify(i.data))}</code></span>`).join('') : 'Nothing here yet!'}</p>`
                     document.getElementById('formInfo').innerHTML = `
