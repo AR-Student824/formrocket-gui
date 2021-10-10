@@ -154,7 +154,8 @@
                 document.getElementById('error').style.display = 'initial'
             }
         } else {
-            fetch('https://proxy.formrocket.me/?reqUrl=https://www.formrocket.me/api/forms/' + encodeURIComponent(userId) + '/' + encodeURIComponent(formName) + '/' + encodeURIComponent(formId) + '/' + encodeURIComponent(formSecret) + '/get').then(res => res.json()).then(res => {
+            var url = 'https://proxy.formrocket.me/?reqUrl=https://www.formrocket.me/api/forms/' + encodeURIComponent(userId) + '/' + encodeURIComponent(formName) + '/' + encodeURIComponent(formId) + '/' + encodeURIComponent(formSecret) + '/get'
+            fetch(url).then(res => res.json()).then(res => {
                 d = res
                 if (res.error) {
                     window.location.href = "./?code=" + res.error.code + "&msg=" + res.error.data
@@ -196,7 +197,7 @@
                             ${res.data.form.responses.all.length}
                         </p>
                             `
-                    document.getElementById('rawData').innerHTML = `${escape(JSON.stringify(res, null, '\t'))}`
+                    document.getElementById('rawData').innerHTML = `<a href="${url}"><button>View raw data</button></a>`
                     console.log(res)
                 }
 
