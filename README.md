@@ -1,4 +1,4 @@
-# GUIRocket
+# FormRocket
 A powerful & no backend GUI client for FormRocket, for viewing form responses (beta)
 
 ## Note
