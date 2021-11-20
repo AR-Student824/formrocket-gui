@@ -176,8 +176,18 @@
             document.getElementById('mainNotConnected').style.display = 'initial'
             document.getElementById('load').style.display = 'none'
             if (errCode && errMsg) {
+                const arr = errCode.toLowerCase().split(" ");
+
+for (var i = 0; i < arr.length; i++) {
+    arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+
+}
+
+const friendlyErrorCode = arr.join(" ");
+console.log(str2);
+
                 swal({
-                    title: escape(errCode), 
+                    title: escape(friendlyErrorCode), 
                     text: escape(errMsg),
                     icon: "error"
                 })
